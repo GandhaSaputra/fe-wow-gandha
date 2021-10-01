@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Redirect } from 'react-router';
+import { UserContext } from '../../config/UserContext/UserContext';
+
+import RightHome from '../../components/RightHome';
+import Left from '../../components/Left';
+
 import './Home.css';
 
-import Left from '../../components/Left';
-import RightHome from '../../components/RightHome';
-
 const Home = () => {
+
+    const [state] = useContext(UserContext)
+
+    if(!state.isLogin){
+        return <Redirect to="/" />
+    }
+
     return (
         <div className="container-home">
             <Left/>

@@ -1,6 +1,7 @@
-import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes } from "../config/config";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import './App.css';
 
 function App() {
   return (

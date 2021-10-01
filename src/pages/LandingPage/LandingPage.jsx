@@ -2,7 +2,6 @@ import React from 'react';
 import {useState} from 'react';
 
 import './LandingPage.css';
-
 import {Icon, Vector} from '../../assets/assets'
 
 import ModalSignUp from '../../components/modal/ModalSignUp';
@@ -29,9 +28,9 @@ function LandingPage() {
         </div>
         <img className="img-background" src={Vector} alt="Book" />
 
-        <ModalSignUp show={showSignUp} onHide={handleCloseSignUp} centered/>
+        <ModalSignUp show={showSignUp} onHide={handleCloseSignUp} handleShowSignIn={handleShowSignIn} centered/>
 
-        <ModalSignIn show={showSignIn} onHide={handleCloseSignIn} className="modal-signin" centered/>
+        <ModalSignIn show={showSignIn} onHide={handleCloseSignIn} handleShowSignUp={handleShowSignUp} className="modal-signin" centered/>
 
     </>
   );

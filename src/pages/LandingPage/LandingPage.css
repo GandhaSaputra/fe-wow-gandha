@@ -91,7 +91,9 @@ body {
   justify-content: space-between !important;
 } */
 
-input {
+.input-signup,
+.input-signin,
+.input-subs {
   max-width: 350px !important;
   height: 50px !important;
   background: #bcbcbc40 !important;

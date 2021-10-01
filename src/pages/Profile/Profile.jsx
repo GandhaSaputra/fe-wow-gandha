@@ -1,11 +1,23 @@
-import React from 'react';
-import Left from '../../components/Left';
-import './Profile.css'
+import React, {useContext} from 'react';
+import { Redirect } from 'react-router';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { EmailIcon, FotoProfileBesar, GenderIcon, MapsIcon, PhoneIcon } from '../../assets/assets';
+import { UserContext } from '../../config/UserContext/UserContext';
+
+import './Profile.css'
+
 import MyList from '../../components/list/MyList';
+import Left from '../../components/Left';
+
+import { EmailIcon, FotoProfileBesar, GenderIcon, MapsIcon, PhoneIcon } from '../../assets/assets';
 
 const Profile = () => {
+
+    const [state] = useContext(UserContext)
+
+    if(!state.isLogin){
+        return <Redirect to="/" />
+    }
+
     return (
         <div className="container-home">
             <Left/>
@@ -22,7 +34,7 @@ const Profile = () => {
                             </div>
                             <div className="text-group-profile">
                                 <div className="top-group-profile">
-                                    <p className="text-data-profile text-satu">ganzs499@gmail.com</p>
+                                    <p className="text-data-profile text-satu">{state.user.email}</p>
                                     <p className="text-label-profile">Email</p>
                                 </div>
                                 <div>

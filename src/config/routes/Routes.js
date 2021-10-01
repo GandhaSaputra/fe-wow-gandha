@@ -1,8 +1,12 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { Home, LandingPage, Profile, Subscribe, NotFound, DetailBook, ReadBook, Admin, AddBook } from '../../pages/pages';
+
+
  
 const Routes = () => {
+
+
     return (
         <Router>
             <Switch>
@@ -18,7 +22,7 @@ const Routes = () => {
                 <Route exact path="/subscribe">
                     <Subscribe/>
                 </Route>
-                <Route exact path="/detail-book">
+                <Route exact path="/detail-book/:bookID">
                     <DetailBook/>
                 </Route>
                 <Route exact path="/read-book">

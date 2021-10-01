@@ -9,8 +9,13 @@
   text-decoration: none;
 }
 
-.add-book-text {
+.link-add-book {
   text-decoration: none;
+  color: #000;
+}
+
+.link-add-book:hover {
+  color: #000;
 }
 
 .admin-transaction-title {
@@ -28,36 +33,39 @@
   margin-right: auto;
 }
 
+.btn-light:active {
+  background-color: transparent;
+}
+
 .dropdown-toggle {
   background-color: transparent;
   border: none;
 }
 
 .dropdown-toggle::after {
-  color: #000;
+  color: rgb(9, 86, 201);
   width: 10px;
 }
 
-.dropdown-toggle::selection {
+.dropdown-toggle:active {
   background-color: transparent;
-  border: none;
-}
-
-.dropdown-toggle:hover {
-  background-color: transparent;
-  border: none;
+  box-shadow: none;
 }
 
 .dropdown-toggle:focus {
   background-color: transparent;
   border: none;
-}
-
-.dropdown-toggle::before {
-  background-color: transparent;
-  border: none;
+  box-shadow: none;
 }
 
 .table-cell {
   height: 50px;
+}
+
+.approved-text {
+  color: #0acf83;
+}
+
+.text-c {
+  color: #ff0000;
 }
