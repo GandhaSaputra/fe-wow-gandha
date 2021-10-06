@@ -1,12 +1,15 @@
-import React, {useContext} from 'react'
-import {Modal, Form, Button} from 'react-bootstrap'
+import React, {useContext, useState} from 'react'
+import {Modal, Form, Button, Alert} from 'react-bootstrap'
 import { useHistory } from 'react-router';
 
 import { UserContext } from '../../config/UserContext/UserContext';
-// import { useHistory } from 'react-router-dom';
+
+import { API } from '../../config/api/api';
 
 const ModalSignUp = (props) => {
     const [state, dispatch] = useContext(UserContext);
+
+    const [message, setMessage] = useState(null);
 
 
     let history = useHistory();
@@ -17,36 +20,46 @@ const ModalSignUp = (props) => {
       props.onHide();
     }
 
+    const [form, setForm] = useState({
+      name: "",
+      email: "",
+      password: ""
+    });
 
-    const handleOnSubmit = (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      const fullName = document.getElementById('fullName').value;
-      
-      const data = {
-        email,
-        password,
-        fullName,
-        statusSubs: 'Not Subscribed Yet',
-        accNumber: '',
-      };
+    const {name, email, password} = form;
 
-      dispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: data
+    const handleChange = (e) => {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
       });
+    };
 
-    
-      if (data.email === 'user01@gmail.com' && data.password === 'user01' && data.fullName === 'user01') {
-        console.log ("Login as User")
-        history.push('/home');
-      } else {
-        alert("Not Match")
+
+    const handleOnSubmit = async (e) => {
+      e.preventDefault();
+      const config = {
+        headers : {
+          "Content-type": "application/json",
+        }
+      }
+
+      const body = JSON.stringify(form);
+
+      const response = await API.post("/register", body, config);
+
+
+      if (response?.status === 200) {
         dispatch({
-          type: 'LOGOUT',
-          payload: data
-        })
+          type: 'LOGIN_SUCCESS',
+          payload: response.data.data,
+        });
+
+        if (response.data.data.user.role === "admin") {
+          history.push("/admin");
+        } else {
+          history.push("/home");
+        }
       }
     };
 
@@ -57,15 +70,15 @@ const ModalSignUp = (props) => {
             <div className="input-group-signup">
               <Form onSubmit={handleOnSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Control className="input-signup" type="email" id="email" placeholder="Email" />
+                  <Form.Control className="input-signup" type="email" id="email" placeholder="Email" value={email} name="email" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Control className="input-signup" type="password" id="password" placeholder="Password" />
+                  <Form.Control className="input-signup" type="password" id="password" placeholder="Password" value={password} name="password" onChange={handleChange} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicFullname">
-                  <Form.Control className="input-signup" type="text" id="fullName" placeholder="Full Name" />
+                  <Form.Control className="input-signup" type="text" id="fullName" placeholder="Full Name" name="name" value={name} onChange={handleChange} />
                 </Form.Group>
                 <Button variant="danger" type="submit" className="btn-submit-signup">
                   Sing Up
