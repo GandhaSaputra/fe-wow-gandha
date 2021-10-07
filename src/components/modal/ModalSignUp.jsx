@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 import { UserContext } from '../../config/UserContext/UserContext';
 
-import { API } from '../../config/api/api';
+import { API, setAuthToken } from '../../config/api/api';
 
 const ModalSignUp = (props) => {
     const [state, dispatch] = useContext(UserContext);
@@ -48,12 +48,14 @@ const ModalSignUp = (props) => {
 
       const response = await API.post("/register", body, config);
 
-
       if (response?.status === 200) {
         dispatch({
           type: 'LOGIN_SUCCESS',
           payload: response.data.data,
         });
+
+        localStorage.setItem("token", response.data.data.user.token);
+        setAuthToken(response.data.data.user.token);
 
         if (response.data.data.user.role === "admin") {
           history.push("/admin");

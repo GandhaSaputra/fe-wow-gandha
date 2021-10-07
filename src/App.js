@@ -1,27 +1,27 @@
 // import { Routes } from "../config/config";
 import {useContext, useEffect} from 'react';
 import {Switch, Route, useHistory} from 'react-router-dom';
+import { UserContext } from './config/UserContext/UserContext';
 // import { Home, LandingPage, Profile, Subscribe, NotFound, DetailBook, ReadBook, Admin, AddBook } from './pages';
 
-import LandingPage from './LandingPage/LandingPage';
-import Home from './Home/Home';
-import Admin from './Admin/Admin';
-import Profile from './Profile/Profile';
-import Subscribe from './Subscribe/Subscribe';
-import NotFound from './NotFound/NotFound';
-import DetailBook from './DetailBook/DetailBook';
-import ReadBook from './ReadBook/ReadBook';
-import AddBook from './AddBook/AddBook';
+import LandingPage from './pages/LandingPage/LandingPage';
+import Home from './pages/Home/Home';
+import Admin from './pages/Admin/Admin';
+import Profile from './pages/Profile/Profile';
+import Subscribe from './pages/Subscribe/Subscribe';
+import NotFound from './pages/NotFound/NotFound';
+import DetailBook from './pages/DetailBook/DetailBook';
+import ReadBook from './pages/ReadBook/ReadBook';
+import AddBook from './pages/AddBook/AddBook';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-import { UserContext } from '../config/UserContext/UserContext';
 
-import {API, setAuthToken}  from '../config/api/api';
+import {API, setAuthToken}  from './config/api/api';
 
 if (localStorage.token) {
-    setAuthToken(localStorage.token);
+  setAuthToken(localStorage.token);
 }
 
 function App() {
@@ -41,20 +41,26 @@ function App() {
   }, [state]);
 
   const checkUser = async () => {
-    const response = await API.get('/check-auth');
-    if(response.status === 404) {
-      return dispatch({
-        type: "AUTH_ERROR",
-      });
-    }
+    try {
+      const response = await API.get('/check-auth');
+      console.log(response);
 
-    let payload = response.data.data.user;
-    payload.token = localStorage.token;
-    dispatch({
-      type: "USER_SUCCESS",
-      payload: payload
-    })
-  }
+      if (response.status === 404) {
+        return dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+      let payload = response.data.data.user;
+      payload.token = localStorage.token;
+
+      dispatch({
+        type: "USER_SUCCESS",
+        payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     checkUser();

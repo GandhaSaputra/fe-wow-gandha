@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import App from './pages/App'
+import App from './App'
 import {UserContextProvider} from './config/UserContext/UserContext'
 import { BrowserRouter as Router } from "react-router-dom";
 

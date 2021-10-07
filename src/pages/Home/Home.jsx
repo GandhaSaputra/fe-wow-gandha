@@ -11,9 +11,9 @@ const Home = () => {
 
     const [state] = useContext(UserContext)
 
-    // if(!state.isLogin){
-    //     return <Redirect to="/" />
-    // }
+    if(!state.isLogin){
+        return <Redirect to="/" />
+    }
 
     return (
         <div className="container-home">

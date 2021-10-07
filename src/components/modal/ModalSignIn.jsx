@@ -4,7 +4,7 @@ import {Modal, Form, Button} from 'react-bootstrap'
 import { useHistory } from 'react-router';
 import { UserContext } from '../../config/UserContext/UserContext';
 
-import { API } from '../../config/api/api';
+import { API, setAuthToken } from '../../config/api/api';
 
 const ModalSignIn = (props) => {
 
@@ -52,6 +52,9 @@ const ModalSignIn = (props) => {
           type: 'LOGIN_SUCCESS',
           payload: response.data.data,
         });
+
+        localStorage.setItem("token", response.data.data.users.token);
+        setAuthToken(response.data.data.users.token);
 
         if (response.data.data.users.role === "admin") {
           history.push("/admin");
