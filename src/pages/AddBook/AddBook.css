@@ -10,7 +10,7 @@
 .input-add-book-box {
   position: relative;
   width: 1000px;
-  height: 750px;
+  height: 1000px;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -45,15 +45,23 @@
   color: #696969;
 }
 
+.category-box {
+  background: #d2d2d280;
+  border: 2px solid #b4b4b4;
+  height: 50px;
+  border-radius: 5px;
+  align-items: center;
+  padding-left: 5px;
+  color: #696969;
+  font-size: 18px;
+  font-weight: 500;
+}
+
 .attache-icon-add-book {
   margin-left: 20px;
 }
 
 .btn-submit-add-book {
-  position: absolute;
-  height: 45px;
-  right: 0;
-  bottom: 100px;
   background-color: #ff0000;
   border: none;
   font-size: 18px;

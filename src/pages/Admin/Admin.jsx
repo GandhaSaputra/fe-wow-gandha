@@ -7,17 +7,15 @@ import './Admin.css'
 import {Table, Dropdown} from 'react-bootstrap'
 import NavbarAdmin from '../../components/NavbarAdmin/NavbarAdmin';
 
-
-
 import './Admin.css';
 
 const Admin = () => {
 
     const [state] = useContext(UserContext)
 
-    // if(!state.isLogin){
-    //     return <Redirect to="/" />
-    // }
+    if(!state.isLogin){
+        return <Redirect to="/" />
+    }
 
     return (
         <div>
